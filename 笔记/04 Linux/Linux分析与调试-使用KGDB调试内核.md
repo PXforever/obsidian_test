@@ -117,7 +117,7 @@ cat /proc/sys/kernel/sysrq
 # 进入调试KGDB
 echo g > /proc/sysrq-trigger
 ```
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240720180341422.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240720180341422.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240720180341422.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240720180341422.png]]
 ## 主机设备配置
 我们需要将目标机上源码编译好的`vmlinux`复制到另外一台设备上，然后使用：
 ```shell
@@ -135,7 +135,7 @@ sudo gdb vmlinux
 
 ## 本地串口调试
 进入调试后状态如下：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725222910395.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725222910395.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725222910395.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725222910395.png]]
 我们使用`help`就可以看到命令列表：
 ```shell
 Command         Usage                Description
@@ -237,7 +237,7 @@ uname -r
 apt search linux-source-5.15
 ```
 只找到一个版本：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721113443980.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721113443980.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721113443980.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721113443980.png]]
 版本大概差不多，当然有更匹配的选择更精确。
 安装源码：
 ```shell
@@ -248,7 +248,7 @@ sudo apt install linux-source-5.15.0
 cd /usr/src/linux-source-5.15.0
 ls
 ```
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721113812002.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721113812002.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721113812002.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721113812002.png]]
 这里我已经解压后的，实际上只有只有框中的3个文件。解压：
 ```shell
 tar -xvf linux-source-5.15.0.tar.bz2
@@ -277,12 +277,12 @@ sudo update-grub
 之后重启。
 ## 调试
 ### 复制虚拟机
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721114613223.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721114613223.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721114613223.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721114613223.png]]
 ### 配置串口
 `target`设置如下：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721114702362.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721114702362.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721114702362.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721114702362.png]]
 `host`设置如下：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721114735224.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721114735224.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721114735224.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721114735224.png]]
 启动系统时，要想两个串口可以在两个虚拟机中通信，需要先开启`未勾选:连接到至现有通道或套接字`的系统然后再启动`勾选的`。
 ### 测试串口
 按照顺序启动两个系统，然后`target`设备
@@ -313,12 +313,12 @@ echo g > /proc/sysrq-trigger
 ```
 当然也可以设置开机就进入调试，不过启动很慢。
 `target`设置如下：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721120024390.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721120024390.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721120024390.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721120024390.png]]
 在这里设备就会卡住，我们需要操作`host`端。
 `host`端设置如下：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721120246202.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721120246202.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721120246202.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721120246202.png]]
 这样便进入了`KGDB`调试。
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721120420480.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240721120420480.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721120420480.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240721120420480.png]]
 
 # 示例2(嵌入式系统启动KGDB)
 > 这是一个嵌入式的调试过程，使用设备与软件如下：
@@ -344,18 +344,18 @@ echo "ttyS0,115200" > /sys/module/kgdboc/parameters/kgdboc
 echo g > /proc/sysrq-trigger
 ```
 接着会进入：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725205515146.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725205515146.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725205515146.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725205515146.png]]
 我们输入help：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725205541869.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725205541869.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725205541869.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725205541869.png]]
 这表示可以开始调试了。
 ## Host接入调试
 我们打开`ubuntu`虚拟机，开启后，将串口接入到虚拟机：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725205958383.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725205958383.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725205958383.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725205958383.png]]
 通过：
 ```shell
 dmesg | grep tty
 ```
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725210055929.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725210055929.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725210055929.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725210055929.png]]
 可以看到`ttyUSB0`是该调试串口
 我们进入到源码目录：
 ```shell
@@ -366,13 +366,13 @@ cd out/a40i_h/kernel/build
 ```shell
 sudo ../../../toolchain/gcc-linaro-5.3.1-2016.05-x86_64_arm-linux-gnueabi/bin/arm-linux-gnueabi-gdb vmlinux
 ```
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725210347713.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725210347713.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725210347713.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725210347713.png]]
 我们设置波特率和串口：
 ```shell
 set serial baud 115200
 target remote /dev/ttyUSB0
 ```
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725210553523.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725210553523.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725210553523.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725210553523.png]]
 可以看到，当前断点在`kgdb_breakpoint`;
 # 示例3(调试示例)
 
@@ -404,11 +404,11 @@ cat status
 ```
 执行上面命令后`target`会卡住。
 我们看看`host`端，发现触发中断了：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725220151807.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725220151807.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725220151807.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725220151807.png]]
 `gdb`中输入命令`list`可以查看一下源码：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725220229168.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725220229168.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725220229168.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725220229168.png]]
 对比实际的源码：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725220304358.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725220304358.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725220304358.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725220304358.png]]
 一模一样。
 好了，我们开始单步调试：
 ```shell
@@ -416,21 +416,21 @@ cat status
 (gdb) n
 (gdb) list
 ```
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725221220630.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725221220630.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725221220630.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725221220630.png]]
 我们查看一下指针`i2c`的地址，但是：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725221300762.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725221300762.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725221300762.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725221300762.png]]
 这里是被优化了，我们来看看`i2c_status`：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725221332550.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725221332550.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725221332550.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725221332550.png]]
 我们直接使用：
 ```shell
 (gdb) r
 ```
 `target`显示：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725221533662.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725221533662.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725221533662.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725221533662.png]]
 我们可以`print *attr`:
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725221742862.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725221742862.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725221742862.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725221742862.png]]
 或打印`print *dev`：
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725221825364.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240725221825364.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725221825364.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240725221825364.png]]
 # 示例4(调试用户定义模块)
 > 在这里，我们需要编写一个简单的模块，然后进行调试。
 >这里使用的设备是：
@@ -481,7 +481,7 @@ lesson_4 16384 0 - Live 0xbf024000 (PO)
 cat /proc/kallsyms | grep lesson_4| sort
 # 地址最小的那个就是
 ```
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727210810464.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727210810464.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727210810464.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727210810464.png]]
 #### 方式3
 ```shell
 # cd cat /sys/module/<module_name>/sections/
@@ -489,8 +489,8 @@ cat /sys/module/lesson_4/sections
 ls -all # 如果是ls，"."开头的文件会隐藏，看不到
 cat .text
 ```
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727211524703.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727211524703.png]]
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727211638563.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727211638563.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727211524703.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727211524703.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727211638563.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727211638563.png]]
 ### 进入调试
 #### target进入
 我们依照[[#^71dde3|示例3]]方法进入调试模式。
@@ -503,30 +503,30 @@ cat .text
 
 sudo /home/forlinx/work2/OKA40i-linux-sdk/out/toolchain/gcc-linaro-5.3.1-2016.05-x86_64_arm-linux-gnueabi/bin/arm-linux-gnueabi-gdb /home/forlinx/work2/OKA40i-linux-sdk/out/a40i_h/kernel/build/vmlinux
 ```
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727214332000.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727214332000.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727214332000.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727214332000.png]]
 然后设置波特率参数，接着载入当前驱动的模块文件：
 ```shell
 #地址是上面获取的
 add-symbol-file lesson_4.ko 0xbf024000
 ```
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727214655457.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727214655457.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727214655457.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727214655457.png]]
 我们设置一个断点：
 ```shell
 (gdb) b scull_write 
 ```
 然后使用`tty`连接调试设备，并继续运行设备：`c`。
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727215221231.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727215221231.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727215221231.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727215221231.png]]
 接着在`target`上操作：
 ```shell
 # 驱动这里并没有显示的创建文件节点，所以我们先看看scull设备的主设备号
 dmesg
 ```
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727220250030.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727220250030.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727220250030.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727220250030.png]]
 然后再创建一个文件节点：
 ```shell
 mknode /dev/scull0 c 241 0
 ```
-![[01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727220339330.png|01 附件/${fileName}/Linux分析与调试-使用KGDB调试内核/image-20240727220339330.png]]
+![[01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727220339330.png|01 附件/Linux分析与调试-使用KGDB调试内核/image-20240727220339330.png]]
 接着：
 ```shell
 echo 9 > /dev/scull0
